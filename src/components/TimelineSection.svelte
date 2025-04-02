@@ -84,6 +84,15 @@
   // 첫 번째와 마지막 회사 가져오기
   const firstCompany = companyPeriods[0].company;
   const lastCompany = companyPeriods[companyPeriods.length - 1].company;
+  
+  // 각 회사별 마커 위치 조정을 위한 오프셋 값 (% 단위)
+  const markerPositionAdjustments: Record<string, number> = {
+    '토미시스템': 0, // 기본 위치 유지
+    '아몬드소프트': 5, // 우측으로 3% 이동
+    '미투온': -3, // 좌측으로 2% 이동
+    '캔비스': 2, // 우측으로 1% 이동
+    '위드와이드': -7 // 좌측으로 8% 이동
+  };
 </script>
 
 <section class="timeline-section">
@@ -100,28 +109,37 @@
       {/each}
     </div>
     
-    <!-- 회사 시작 연도에만 마커 표시 -->
+    <!-- 회사 시작 연도에만 마커 표시 - 위치 수정 및 회사별 조정 -->
     <div class="timeline-markers">
       {#each companyPeriods as period, i}
+        <!-- 회사별 마커 위치 조정 -->
         <div 
           class="timeline-year-marker"
-          style="left: calc({(period.startYear - 2010) / 13 * 100}%);"
+          style="
+            left: calc({(period.startYear - 2010) / 13 * 100}% + {markerPositionAdjustments[period.company] || 0}%); 
+            transform: none;
+          "
         >
-          <div class="marker-dot"></div>
-          <div class="marker-year">{period.startYear}</div>
+          <div class="marker-dot" style="background-color: {getColorForCompany(period.company)};"></div>
           
-          <!-- 회사 이름 표시 (첫번째는 좌측 정렬, 마지막은 우측 정렬, 나머지는 중앙) -->
+          <!-- <div class="marker-content" style="align-items: {i === 0 ? 'flex-start' : 'center'}; transform: {i === 0 ? 'none' : 'translateX(-50%)'};"> -->
           <div 
-            class="company-label" 
+            class="marker-content"
             style="
-              color: {getColorForCompany(period.company)};
-              text-align: {i === 0 ? 'left' : i === companyPeriods.length - 1 ? 'right' : 'center'};
-              left: {i === 0 ? '0' : i === companyPeriods.length - 1 ? 'auto' : '50%'};
-              right: {i === companyPeriods.length - 1 ? '0' : 'auto'};
-              transform: {i !== 0 && i !== companyPeriods.length - 1 ? 'translateX(-50%)' : 'none'};
+              align-items: 'flex-start'};
+              transform: {'translateX(-10%)'}; 
             "
           >
-            {period.company}
+            <div class="marker-year">{period.startYear}</div>
+            <div 
+              class="company-label" 
+              style="
+                color: {getColorForCompany(period.company)};
+                text-align: {i === 0 ? 'left' : 'center'};
+              "
+            >
+              {period.company}
+            </div>
           </div>
         </div>
       {/each}
@@ -170,14 +188,19 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    transform: translateX(-50%);
+    align-items: flex-start;
+  }
+  
+  .marker-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: max-content;
   }
   
   .marker-dot {
     width: 10px;
     height: 10px;
-    background-color: #333333;
     border-radius: 50%;
     margin-bottom: 5px;
   }
@@ -185,14 +208,12 @@
   .marker-year {
     font-size: 12px;
     color: #333333;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
   }
   
   .company-label {
-    position: absolute;
     font-size: 12px;
     font-weight: 500;
-    top: 30px;
     white-space: nowrap;
   }
   

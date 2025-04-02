@@ -59,7 +59,7 @@ export const experiences: Experience[] = [
     ],
     skills: ["Unity", "NGUI", "C++", "MFC"]
   },
-  { company: '캔비스', period: '2020. 11 ~ 2022. 06',
+  { company: '캔비스', period: '2020.11 ~ 2022.06',
     industry: '온라인 포커게임 개발',
     descriptions: [
       { icon: "circle", contxt: 'Unity 클라이언트' },
