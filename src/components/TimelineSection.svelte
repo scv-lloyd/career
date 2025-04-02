@@ -212,7 +212,7 @@
   }
   
   .company-label {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 500;
     white-space: nowrap;
   }

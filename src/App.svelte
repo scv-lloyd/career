@@ -32,11 +32,11 @@
     
     <Body />
     
-    <footer>
+    <!-- <footer>
       <div class="footer-container">
         <p>{FooterMessage}</p>
       </div>
-    </footer>
+    </footer> -->
   </div>
 </main>
 
