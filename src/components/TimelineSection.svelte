@@ -13,23 +13,25 @@
   // 모바일 여부 확인 스토어
   const isMobile = writable(false);
   
-  // 회사별 기간 정보 정확히 계산
+  // 회사별 기간 정보 정확히 계산 및 정렬
   const companyPeriods = experiences.map(exp => {
-    const periodParts = exp.period.split(' ~ ');
-    const startStr = periodParts[0];
-    const endStr = periodParts[1] || '현재';
-    
-    const startYear = parseInt(startStr.split('.')[0]);
-    const endYear = endStr === '현재' 
-      ? new Date().getFullYear() 
-      : parseInt(endStr.split('.')[0]);
-    
-    return {
-      company: exp.company,
-      startYear,
-      endYear
-    };
-  });
+      const periodParts = exp.period.split(' ~ ');
+      const startStr = periodParts[0];
+      const endStr = periodParts[1] || '현재';
+      
+      const startYear = parseInt(startStr.split('.')[0]);
+      const endYear = endStr === '현재' 
+        ? new Date().getFullYear() 
+        : parseInt(endStr.split('.')[0]);
+      
+      return {
+        company: exp.company,
+        startYear,
+        endYear,
+        period: exp.period
+      };
+    })
+    .sort((a, b) => a.startYear - b.startYear);
   
   // 특정 연도의 회사 찾기
   function getCompanyForYear(year: number): string | null {
@@ -41,11 +43,8 @@
     return null;
   }
   
-  // 타임라인에 표시할 모든 연도
-  const displayYears = [2010, 2012, 2014, 2016, 2018, 2020, 2022, 2023];
-  
-  // 모바일용 표시 연도
-  const mobileYears = [2010, 2016, 2023];
+  // 마커에 표시할 연도 (회사 시작 연도만)
+  const markerYears = companyPeriods.map(p => p.startYear);
   
   interface TimelineSegment {
     year: number,
@@ -53,17 +52,15 @@
     color: string,
   }
   // 타임라인 세그먼트 데이터 생성
-  let timelineSegments: TimelineSegment[] = [];
+  const timelineSegments: TimelineSegment[] = [];
   for (let i = 2010; i <= 2023; i++) {
     const company = getCompanyForYear(i);
-
     timelineSegments.push({
       year: i,
       company,
       color: getColorForCompany(company)
     });
   }
-  // $: console.log(`timelineSegments: ${JSON.stringify(timelineSegments)}`);
   
   // 화면 크기 변경 감지하는 함수
   function handleResize() {
@@ -84,8 +81,9 @@
     }
   });
   
-  // 회사 이름을 표시 순서대로 정렬 (이미지와 같이 표시되도록)
-  const displayedCompanies = ['토미시스템', '아몬드소프트', '미투온', '캔비스', '위드와이드'];
+  // 첫 번째와 마지막 회사 가져오기
+  const firstCompany = companyPeriods[0].company;
+  const lastCompany = companyPeriods[companyPeriods.length - 1].company;
 </script>
 
 <section class="timeline-section">
@@ -102,24 +100,29 @@
       {/each}
     </div>
     
-    <!-- 연도 마커 -->
+    <!-- 회사 시작 연도에만 마커 표시 -->
     <div class="timeline-markers">
-      {#each displayYears as year}
-        <div class="timeline-year-marker">
-          <div class="marker-dot"></div>
-          <div class="marker-year">{year}</div>
-        </div>
-      {/each}
-    </div>
-    
-    <!-- 회사명 표시 - 이미지와 같은 순서로 출력 -->
-    <div class="company-labels">
-      {#each displayedCompanies as companyName}
+      {#each companyPeriods as period, i}
         <div 
-          class="company-label" 
-          style="color: {getColorForCompany(companyName)};"
+          class="timeline-year-marker"
+          style="left: calc({(period.startYear - 2010) / 13 * 100}%);"
         >
-          {companyName}
+          <div class="marker-dot"></div>
+          <div class="marker-year">{period.startYear}</div>
+          
+          <!-- 회사 이름 표시 (첫번째는 좌측 정렬, 마지막은 우측 정렬, 나머지는 중앙) -->
+          <div 
+            class="company-label" 
+            style="
+              color: {getColorForCompany(period.company)};
+              text-align: {i === 0 ? 'left' : i === companyPeriods.length - 1 ? 'right' : 'center'};
+              left: {i === 0 ? '0' : i === companyPeriods.length - 1 ? 'auto' : '50%'};
+              right: {i === companyPeriods.length - 1 ? '0' : 'auto'};
+              transform: {i !== 0 && i !== companyPeriods.length - 1 ? 'translateX(-50%)' : 'none'};
+            "
+          >
+            {period.company}
+          </div>
         </div>
       {/each}
     </div>
@@ -141,6 +144,7 @@
   .timeline-container {
     position: relative;
     margin-bottom: 30px;
+    padding-bottom: 40px; /* 회사 이름을 위한 공간 확보 */
   }
   
   .timeline-bar {
@@ -157,16 +161,17 @@
   }
   
   .timeline-markers {
-    display: flex;
-    justify-content: space-between;
     position: relative;
+    height: 0px;
     margin-top: -15px;
   }
   
   .timeline-year-marker {
+    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transform: translateX(-50%);
   }
   
   .marker-dot {
@@ -180,25 +185,19 @@
   .marker-year {
     font-size: 12px;
     color: #333333;
-  }
-  
-  .company-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+    margin-bottom: 8px;
   }
   
   .company-label {
+    position: absolute;
     font-size: 12px;
     font-weight: 500;
+    top: 30px;
+    white-space: nowrap;
   }
   
   /* 반응형 스타일 */
   @media (max-width: 768px) {
-    .company-labels {
-      display: none;
-    }
-    
     .timeline-bar {
       height: 4px;
     }
@@ -210,6 +209,14 @@
     
     .marker-year {
       font-size: 10px;
+    }
+    
+    .company-label {
+      font-size: 10px;
+    }
+    
+    .timeline-container {
+      padding-bottom: 60px; /* 모바일에서 회사 이름이 겹치지 않도록 공간 확보 */
     }
   }
 </style>
