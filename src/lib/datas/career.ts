@@ -2,64 +2,6 @@ import type { Experience } from "../types/basic";
 
 // 직무 경력
 export const experiences: Experience[] = [
-  { company: '위드와이드', period: '2023.07 ~ 2023.12',
-    industry: '온라인 포커게임 개발',
-    descriptions: [
-      { icon: "circle", contxt: 'Unity 클라이언트' },
-        { icon: "arrow", contxt: "TCP / IP 소켓통신 처리" },
-        { icon: "arrow", contxt: "DB 정보 API 처리" },
-        { icon: "arrow", contxt: "게임 UI" },
-        { icon: "arrow", contxt: "기존 클라이언트 버그 수정 및 기능 보완" },
-        { icon: "arrow", contxt: "안드로이드 & iOS 빌드 및 업데이트" },
-    ],
-    skills: ["Unity", "UGUI"]
-  },
-  { company: '캔비스', period: '2020. 11 ~ 2022. 06',
-    industry: '온라인 포커게임 개발',
-    descriptions: [
-      { icon: "circle", contxt: 'Unity 클라이언트' },
-        { icon: "arrow", contxt: "TCP / IP 소켓통신 처리" },
-        { icon: "arrow", contxt: "DB 정보 API 처리" },
-        { icon: "arrow", contxt: "홀덤 게임 류 다수 신규 개발" },
-        { icon: "arrow", contxt: "토너먼트 서비스 신규 개발" },
-        
-      // { icon: "circle", contxt: '재택 근무자와 협업' },
-      //   { icon: "arrow", contxt: "클라이언트 담당자와의 분업 조율" },
-      //   { icon: "arrow", contxt: "아트 담당자의 리소스 관리 및 인게임 적용" },
-    ],
-    skills: ["Unity", "NGUI"]
-  },
-  { company: '미투온', period: '2016.03 ~ 2020.10',
-    industry: '온라인 포커게임 개발',    
-    descriptions: [
-      { icon: "circle", contxt: '공통 업무' },
-        { icon: "arrow", contxt: "TCP / IP 소켓통신 처리" },
-        { icon: "arrow", contxt: "DB 정보 API 처리" },
-        { icon: "arrow", contxt: "게임 UI" },
-        { icon: "arrow", contxt: "이벤트 컨텐츠 개발" },
-
-      { icon: "circle", contxt: 'PC 클라이언트' },
-        { icon: "arrow", contxt: "빌드 관리 및 업데이트" },
-        { icon: "arrow", contxt: "오브젝트 툴 리소스 작업" },
-
-      { icon: "circle", contxt: '모바일 클라이언트' },
-        { icon: "arrow", contxt: "안드로이드 빌드 및 업데이트" },
-    ],
-    skills: ["Unity", "NGUI", "C++", "MFC"]
-  },
-  { company: '아몬드소프트', period: '2014.06 ~ 2015.08',
-    industry: '2D MMORPG 게임 개발',
-    descriptions: [
-      { icon: "circle", contxt: 'C++ 클라이언트' },
-        { icon: "arrow", contxt: "인벤토리 창이나 스킬 창 등의 UI 업무" },
-        { icon: "arrow", contxt: "cocos2d-x 렌더링 마이그레이션" },
-
-      { icon: "circle", contxt: '버그 수정' },
-        { icon: "arrow", contxt: "프레임워크의 마이너 버그를 수정하여 기능 안정화 지원" },
-        { icon: "arrow", contxt: "MFC로 개발된 오브젝트 / 맵 툴 버그 수정" },
-    ],
-    skills: ['C', "MFC"]
-  },
   { company: "토미시스템", period: '2010.08 ~ 2014.04',
     industry: '오프라인 포커게임 개발',
     descriptions: [
@@ -86,6 +28,64 @@ export const experiences: Experience[] = [
     ],
     skills: ['C++' , "boost 라이브러리", "FLASH", "Actionscript"]
   },
+  { company: '아몬드소프트', period: '2014.06 ~ 2015.08',
+    industry: '2D MMORPG 게임 개발',
+    descriptions: [
+      { icon: "circle", contxt: 'C++ 클라이언트' },
+        { icon: "arrow", contxt: "인벤토리 창이나 스킬 창 등의 UI 업무" },
+        { icon: "arrow", contxt: "cocos2d-x 렌더링 마이그레이션" },
+
+      { icon: "circle", contxt: '버그 수정' },
+        { icon: "arrow", contxt: "프레임워크의 마이너 버그를 수정하여 기능 안정화 지원" },
+        { icon: "arrow", contxt: "MFC로 개발된 오브젝트 / 맵 툴 버그 수정" },
+    ],
+    skills: ['C', "MFC"]
+  },
+  { company: '미투온', period: '2016.03 ~ 2020.10',
+    industry: '온라인 포커게임 개발',    
+    descriptions: [
+      { icon: "circle", contxt: '공통 업무' },
+        { icon: "arrow", contxt: "TCP / IP 소켓통신 처리" },
+        { icon: "arrow", contxt: "DB 정보 API 처리" },
+        { icon: "arrow", contxt: "게임 UI" },
+        { icon: "arrow", contxt: "이벤트 컨텐츠 개발" },
+
+      { icon: "circle", contxt: 'PC 클라이언트' },
+        { icon: "arrow", contxt: "빌드 관리 및 업데이트" },
+        { icon: "arrow", contxt: "오브젝트 툴 리소스 작업" },
+
+      { icon: "circle", contxt: '모바일 클라이언트' },
+        { icon: "arrow", contxt: "안드로이드 빌드 및 업데이트" },
+    ],
+    skills: ["Unity", "NGUI", "C++", "MFC"]
+  },
+  { company: '캔비스', period: '2020. 11 ~ 2022. 06',
+    industry: '온라인 포커게임 개발',
+    descriptions: [
+      { icon: "circle", contxt: 'Unity 클라이언트' },
+        { icon: "arrow", contxt: "TCP / IP 소켓통신 처리" },
+        { icon: "arrow", contxt: "DB 정보 API 처리" },
+        { icon: "arrow", contxt: "홀덤 게임 류 다수 신규 개발" },
+        { icon: "arrow", contxt: "토너먼트 서비스 신규 개발" },
+        
+      // { icon: "circle", contxt: '재택 근무자와 협업' },
+      //   { icon: "arrow", contxt: "클라이언트 담당자와의 분업 조율" },
+      //   { icon: "arrow", contxt: "아트 담당자의 리소스 관리 및 인게임 적용" },
+    ],
+    skills: ["Unity", "NGUI"]
+  },
+  { company: '위드와이드', period: '2023.07 ~ 2023.12',
+    industry: '온라인 포커게임 개발',
+    descriptions: [
+      { icon: "circle", contxt: 'Unity 클라이언트' },
+        { icon: "arrow", contxt: "TCP / IP 소켓통신 처리" },
+        { icon: "arrow", contxt: "DB 정보 API 처리" },
+        { icon: "arrow", contxt: "게임 UI" },
+        { icon: "arrow", contxt: "기존 클라이언트 버그 수정 및 기능 보완" },
+        { icon: "arrow", contxt: "안드로이드 & iOS 빌드 및 업데이트" },
+    ],
+    skills: ["Unity", "UGUI"]
+  },
    // {
    //   company: '토미시스템',
    //   industry: '오프라인 포커게임 개발',
@@ -99,3 +99,4 @@ export const experiences: Experience[] = [
    //   skills: ['C#', 'Unity', 'UGUI']
    // },
  ];
+ 

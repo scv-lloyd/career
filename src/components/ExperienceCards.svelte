@@ -1,10 +1,12 @@
 <script lang="ts">
     import { experiences } from '../lib/datas/career';
     import { getColorForCompany } from '../lib/utils/companyColors';
+
+    const career = [ ...experiences ].reverse();
   </script>
   
   <div class="experience-cards">
-    {#each experiences as exp}
+    {#each career as exp}
       <div class="experience-card">
         <div 
           class="card-color-bar" 
@@ -66,9 +68,9 @@
       transition: transform 0.3s ease;
     }
     
-    .experience-card:hover {
+    /* .experience-card:hover {
       transform: translateY(-5px);
-    }
+    } */
     
     .card-color-bar {
       width: 10px;
