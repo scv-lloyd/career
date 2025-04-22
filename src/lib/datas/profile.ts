@@ -1,1 +1,1 @@
-export const MyName = "조동준";
+export const MyName = "LLOYD";
